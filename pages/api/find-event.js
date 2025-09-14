@@ -1,7 +1,6 @@
-// pages/api/find-event.js
 const { getOAuth2Client, calendar, resolveCalendarId, checkBearer } = require("./auth");
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).end();
   if (!checkBearer(req)) return res.status(403).json({ error: "forbidden" });
 
@@ -15,10 +14,9 @@ module.exports = async function handler(req, res) {
     const cal = calendar(auth);
     const calendarId = await resolveCalendarId(cal, calendarNameOrId);
 
-    // Build inclusive window [start_date, end_date]
     const start = new Date(`${start_date}T00:00:00Z`);
     const end = new Date(`${end_date}T00:00:00Z`);
-    end.setUTCDate(end.getUTCDate() + 1); // make end exclusive at next midnight
+    end.setUTCDate(end.getUTCDate() + 1); // include the whole end day
 
     const resp = await cal.events.list({
       calendarId,
@@ -37,9 +35,9 @@ module.exports = async function handler(req, res) {
       htmlLink: e.htmlLink
     }));
 
-    return res.status(200).json({ events });
+    res.status(200).json({ events });
   } catch (err) {
     console.error("find-event error", err);
-    return res.status(500).json({ error: "internal_error", detail: String(err) });
+    res.status(500).json({ error: "internal_error", detail: String(err) });
   }
-};
+}
