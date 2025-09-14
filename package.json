@@ -1,16 +1,20 @@
 {
   "name": "calendar-assistant",
+  "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "@vercel/kv": "0.2.5",
-    "googleapis": "131.0.0",
+    "@vercel/kv": "^1.0.0",
+    "googleapis": "^131.0.0",
     "next": "14.2.5",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   }
 }
