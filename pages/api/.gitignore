@@ -1,0 +1,11 @@
+# node / next
+node_modules
+.next
+.env*
+
+# local Google secrets
+credentials.json
+token.json
+
+# misc
+.DS_Store
